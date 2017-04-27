@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript">
+        var c=0
+        var t
+        var stopflag=false
+        function timedCount()
+        {
+            document.getElementById('txt').value=c
+            c=c+1
+            t=setTimeout("timedCount()",1000)
+        }
+        function timedCount1()
+        {
+            c=0
+            stopflag=false
+            setTimeout("document.getElementById('txt').value=0",0);
+            clearTimeout(t);
+            t=setTimeout("timedCount()",1000)
+        }
+        function timedCount2()
+        {
+            document.getElementById('txt').value=c
+            clearTimeout(t);
+            stopflag=true
+        }
+        function timedCount3()
+        {
+            if(stopflag){
+                stopflag = false
+                t=setTimeout("timedCount()",1000)
+            }
+        }
+
+        //        var countdownElement = document.getElementById('countdown'),
+        //            downloadButton = document.getElementById('watchVideo'),
+        //            seconds = 5,
+        //            second = 0,
+        //            interval;
+        //
+        //        downloadButton.style.display = 'none';
+        //
+        //        interval = setInterval(function() {
+        //            countdownElement.firstChild.data = 'You still have ' + (seconds - second) + ' seconds';
+        //            if (second >= seconds) {
+        //                downloadButton.style.display = 'block';
+        //                clearInterval(interval);
+        //            }
+        //
+        //            second++;
+        //        }, 1000);
+    </script>
+</head>
+
+<body>
+
+<form>
+    <input type="button" value="Timer Start！" onClick="timedCount1()">
+    <input type="text" id="txt">
+    <input type="button" value="Timer Stop！" onClick="timedCount2()">
+    <input type="button" value="Timer Continue！" onClick="timedCount3()">
+</form>
+
+<p>please press the button. The Timer will start counting from 0. </p>
+
+</body>
+
+</html>

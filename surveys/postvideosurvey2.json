@@ -1,0 +1,47 @@
+{
+    "survey_name": "Let us know what you learnt about nuclear physics",
+    "survey_type": "postvideosurvey",
+    "survey_stage": 2,
+    "survey_questions": [
+        {
+            "type": "multiple_choice",
+            "question": "1. Different isotopes of a given element ...",
+            "options": ["have different mass, but behave the same chemically.", "have different mass, and behave differently chemically.", "have the same mass, and behave the same chemically.", "have the same mass, and behave differently chemically.", "I don't know / I am not sure."]
+        },
+        {
+            "type": "multiple_choice",
+            "question": "2. An example of nuclear energy from fusion is ...",
+            "options": ["fusing a proton and a neutron, thus releasing energy.", "fusing Deuterium and Tritium to Helium, thus releasing energy and a neutron.", "fusing Uranium and Radium, thus releasing energy and alpha-radiation.", "fusing a proton and an electron, thus releasing energy.", "I don't know / I am not sure."]
+        },
+        {
+            "type": "multiple_choice",
+            "question": "3. An atomic mass unit (u) is equal to ...",
+            "options": ["the atomic mass of C-12 divided by 12.", "the mass of a proton in a C-12 nucleus.", "the average mass of the neutrons and protons in a C-12 nucleus.", "the mass of a H-1 nucleus.", "I don't know / I am not sure."]
+        },
+        {
+            "type": "multiple_choice",
+            "question": "4. In the video, it is claimed that ...",
+            "options": ["we are all rainbows.", "we are all stardust.", "we are all matter.", "we are all atoms and molecules.", "I don't know / I am not sure."]
+        },
+        {
+            "type": "multiple_choice",
+            "question": "5. The heaviest elements are produced by ...",
+            "options": ["the Big Bang.", "nuclear reactions in stars.", "cosmic radiation.", "supernovas.", "I don't know / I am not sure."]
+        },        
+        {
+            "type": "multiple_choice",
+            "question": "6. The mass of an electron is smaller than the mass of a neutron by the factor ...",
+            "options": ["1000.", "2000.", "3000.", "4000.", "I don't know / I am not sure."]
+        },
+        {
+            "type": "multiple_choice",
+            "question": "7. Which two nuclide are leveraged in the examples of light nuclide and heavy nuclide in the video?",
+            "options": ["H-2 and U-235", "H-2 and U-238", "C-12 and U-235", "C-12 and U-238", "I don't know / I am not sure."]
+        },
+        {
+            "type": "multiple_choice",
+            "question": "8. In the video, which color is used to represent the stable nuclides in the Nuclide Chart?",
+            "options": ["Red", "Yellow", "Blue", "Black", "I don't know / I am not sure."]
+        }
+    ]
+}

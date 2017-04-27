@@ -1,0 +1,27 @@
+{
+  "survey_name": "What is your prior knowledge on the topic of solar energy?",
+  "survey_type": "prevideosurvey",
+  "survey_stage": 1,
+  "survey_questions": [
+    {
+      "type": "multiple_choice",
+      "question": "1. What is the scientific definition of energy?",
+      "options": ["The property of a system to transfer capacity.", "The capacity of a system to perform work.", "The property of a system to store work capacity.", "The work a system performs.", "I don't know / I am not sure."]
+    },
+    {
+      "type": "multiple_choice",
+      "question": "2. What is the unit of energy?",
+      "options": ["Pascal", "Watt", "Joule", "Volt", "I don't know / I am not sure."]
+    },
+    {
+      "type": "multiple_choice",
+      "question": "3. The water in a reservoir behind a hydropower dam is an example of ...",
+      "options": ["kinetic energy." , "potential energy.", "electrical energy.", "gravitational energy.", "I don't know / I am not sure."]
+    },
+    {
+      "type": "multiple_choice",
+      "question": "4. Photovoltaics is the ...",
+      "options": ["conversion of light into electricity using semiconducting materials.", "conversion of photonic energy into electrical energy using semiconducting materials.", "transport of electrical energy from a single solar cell to the electricity grid.", "transport of electrical energy between solar cell layers.", "I don't know / I am not sure."]
+    }
+  ]
+}

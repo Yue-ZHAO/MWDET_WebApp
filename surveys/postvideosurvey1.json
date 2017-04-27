@@ -1,0 +1,47 @@
+{
+  "survey_name": "Let us know what you learnt about solar energy",
+  "survey_type": "postvideosurvey",
+  "survey_stage": 1,
+  "survey_questions": [
+    {
+      "type": "multiple_choice",
+      "question": "1. What is the scientific definition of energy?",
+      "options": ["The property of a system to transfer capacity.", "The property of a system to store work capacity.", "The work a system performs.", "The capacity of a system to perform work.", "I don't know / I am not sure."]
+    },
+    {
+      "type": "multiple_choice",
+      "question": "2. Power is ...",
+      "options": ["the rate of doing work (i.e. energy per time).", "an interaction that will change the motion of an object.", "an object’s displacement in the direction of power.", "the energy an object possesses due to its motion.", "I don't know / I am not sure."]
+    },
+    {
+      "type": "multiple_choice",
+      "question": "3. Which of the following statements is correct?",
+      "options": ["Fossil fuels are millions of years of solar energy stored in the form of chemical energy.", "Renewable energies are generated through the photosynthetic process in nature.", "No new repositories of fossil fuels are generated in nature.", "Renewable energies are millions of years of solar energy stored in the form of electric energy.", "I don't know / I am not sure."]
+    },
+    {
+      "type": "multiple_choice",
+      "question": "4. In the video, which example is used to show how energy works by being converted from one form to another form?",
+      "options": ["Electric heater, from electrical energy to thermal energy", "Electric motor, from electrical energy to mechanical energy", "Our body, from chemical energy to mechanical energy and electrical energy", "Plants, from light energy to chemical energy", "I don't know / I am not sure."]
+    },
+    {
+      "type": "multiple_choice",
+      "question": "5. Which oil spill was mentioned in the video?",
+      "options": ["New Orleans oil spill 2008", "Gulf of Mexico oil spill 2010", "Persian Gulf oil spill 2012", "Yellostone river oil spill 2015", "I don't know / I am not sure."]
+    },
+    {
+      "type": "multiple_choice",
+      "question": "6. What, according to the video, happened in the oil crisis in the 1970s?",
+      "options": ["Some countries stopped producing and trading oil.", "Some countries demanded double the usual oil price per barrel.", "The USA embargoed Russia’s oil deliveries.", "Russia embargoed USA-bound oil deliveries.", "I don't know / I am not sure."]
+    },
+    {
+      "type": "multiple_choice",
+      "question": "7. In 2010 the USA used how much energy per capita per day?",
+      "options": ["30 kWh", "230 kWh", "1230 kWh", "20000 kWh", "I don't know / I am not sure."]
+    },
+    {
+      "type": "multiple_choice",
+      "question": "8. What is the predicted increase in global energy consumption by 2040 in reference to 2010?",
+      "options": ["5%", "50%", "500%", "5000%", "I don't know / I am not sure."]
+    }
+  ]
+}

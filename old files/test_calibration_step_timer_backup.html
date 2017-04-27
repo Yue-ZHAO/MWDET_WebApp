@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * { margin:0; padding:0; } /* to remove the top and left whitespace */
+
+        html, body { width:100%; height:100%; } /* just to be sure these are full screen*/
+
+        #wrapper {
+            text-align: center;
+        }
+
+        #wrapper iframe {
+            display: inline-block;
+        }
+
+    </style>
+</head>
+<body>
+
+<canvas id="fullScreenCanvas" style="display: block;"></canvas>
+<button id="watchVideo" onclick="show_video();" disabled="disabled">Watch the lecture video</button>
+
+<div id="videoblock" style="display: none;">
+    <iframe id="myIframe" width="830" height="467" src="https://www.youtube.com/embed/uA4J7DQ95cE?enablejsapi=1" frameborder="0" allowfullscreen></iframe>
+</div>
+<div id="ratingblock" style="display: none;">
+    <p>Attention Rating</p>
+    <button id="testbutton" onclick="timedStarter();">timer starter</button>
+    <input type="text" id="timerDisplay">
+    <button id="ratingButton1" onclick="attention_rating(1);" disabled="disabled">1</button>
+    <button id="ratingButton2" onclick="attention_rating(2);" disabled="disabled">2</button>
+    <button id="ratingButton3" onclick="attention_rating(3);" disabled="disabled">3</button>
+    <button id="ratingButton4" onclick="attention_rating(4);" disabled="disabled">4</button>
+    <button id="ratingButton5" onclick="attention_rating(5);" disabled="disabled">5</button>
+</div>
+
+<!-- Load WebGazer.js -->
+<script src="webgazer.js"></script>
+<script type="text/javascript">
+
+    var pageStartTime = Date.now();
+    var recentClickRecord;
+    var recentGazePrediction;
+    var sumError = 0;
+    var numRecords = 0;
+    var compareRecords = [];
+
+    document.addEventListener('click', recordMousePos, true);
+    function recordMousePos(event) {
+        var e = event || window.event;
+//        // console.logger({'x':e.clientX,'y':e.clientY,'time':(Date.now() - pageStartTime),'type':'Click'});
+//        if(!recentGazePrediction)
+//            return;
+//        recentClickRecord = {'x':e.clientX,'y':e.clientY,'time':(Date.now() - pageStartTime)}
+//        if (recentClickRecord.time - recentGazePrediction.time > 0 &&
+//            recentClickRecord.time - recentGazePrediction.time < 100) {
+//            var relativeError =
+//                Math.sqrt(Math.pow((recentClickRecord.x - recentGazePrediction.x), 2) +
+//                    Math.pow((recentClickRecord.y - recentGazePrediction.y), 2));
+//            numRecords += 1;
+//            sumError += relativeError;
+//            compareRecords.push({
+//                "Click":[recentClickRecord.x, recentClickRecord.y],
+//                "Prediction":[recentGazePrediction.x, recentGazePrediction.y],
+//                "Error":relativeError,
+//                "MeanError":(sumError/numRecords)});
+//            var outputString =
+//                "ClickTime: " + numRecords + "    " +
+//                "Click: (" + recentClickRecord.x + ", " + recentClickRecord.y + ")    " +
+//                "Prediction: (" + recentGazePrediction.x + ", " + recentGazePrediction.y + ")    " +
+//                "Error: " + relativeError + "    " +
+//                "MeanError: " + (sumError/numRecords);
+//            document.getElementById("output").innerHTML += outputString + "<br>";
+//        }
+        return;
+    }
+
+    window.onload = function() {
+
+        webgazer.setRegression('ridge') /* currently must set regression and tracker */
+            .setTracker('clmtrackr')
+            .setGazeListener(function(data, clock) {
+                // console.logger(data); /* data is an object containing an x and y key which are the x and y prediction coordinates (no bounds limiting) */
+                // console.logger(clock); /* elapsed time in milliseconds since webgazer.begin() was called */
+                if(!data)
+                    return;
+                var x = data.x
+                var y = data.y
+                // console.logger({'x':x,'y':y,'time':(Date.now() - pageStartTime),'type':'Gaze'})
+                recentGazePrediction = {'x':x,'y':y,'time':(Date.now() - pageStartTime)}
+            })
+            .begin()
+            .showPredictionPoints(true); /* shows a square every 100 milliseconds where current prediction is */
+
+//        var width = 300;
+//        var height = 200;
+//        var topDist = '0px';
+//        var leftDist = '300px';
+
+        var setup = function() {
+            // show
+//            var video = document.getElementById('webgazerVideoFeed');
+//            video.style.display = 'block';
+//            video.style.position = 'absolute';
+//            video.style.top = topDist;
+//            video.style.left = leftDist;
+//            video.width = width;
+//            video.height = height;
+//            video.style.margin = '0px';
+//
+//            webgazer.params.imgWidth = width;
+//            webgazer.params.imgHeight = height;
+//
+//            var overlay = document.createElement('canvas');
+//            overlay.id = 'overlay';
+//            overlay.style.position = 'absolute';
+//            overlay.width = width;
+//            overlay.height = height;
+//            overlay.style.top = topDist;
+//            overlay.style.left = leftDist;
+//            overlay.style.margin = '0px';
+//
+//            document.body.appendChild(overlay);
+//
+//            var cl = webgazer.getTracker().clm;
+//
+//            function drawLoop() {
+//                requestAnimFrame(drawLoop);
+//                overlay.getContext('2d').clearRect(0,0,width,height);
+//                if (cl.getCurrentPosition()) {
+//                    cl.draw(overlay);
+//                }
+//            }
+//            drawLoop();
+        };
+
+        function checkIfReady() {
+            if (webgazer.isReady()) {
+                setup();
+            } else {
+                setTimeout(checkIfReady, 100);
+            }
+        }
+        setTimeout(checkIfReady,100);
+    };
+
+
+    window.onbeforeunload = function() {
+        //webgazer.end(); //Uncomment if you want to save the data even if you reload the page.
+        window.localStorage.clear(); //Comment out if you want to save data across different sessions
+    }
+
+    //---- The following script is used for the calibration step of WebGazer.js ----
+    var elem = document.getElementById('fullScreenCanvas');
+    elem.width = window.innerWidth;
+    elem.height = window.innerHeight - 30;
+    var elemLeft = elem.offsetLeft,
+        elemTop = elem.offsetTop,
+        context = elem.getContext('2d'),
+        elements = [];
+
+    // Add element.
+    var numberofnodes_width = 10;
+    var numberofnodes_height = 5;
+    var numberofnodes = numberofnodes_width * numberofnodes_height;
+    var i_width;
+    var i_height;
+
+    for (i_width=0; i_width < numberofnodes_width; i_width++){
+        for (i_height=0; i_height<numberofnodes_height; i_height++){
+            elements.push({
+                colour: '#05EFFF',
+                width: 15,
+                height: 15,
+                top: window.innerHeight/numberofnodes_height * i_height + 20,
+                left: window.innerWidth/numberofnodes_width * i_width + 20,
+            });
+        }
+    }
+
+    // Render elements.
+    elements.forEach(function(element) {
+        context.fillStyle = element.colour;
+        context.fillRect(element.left, element.top, element.width, element.height);
+    });
+
+    // Add event listener for `click` events.
+    elem.addEventListener('click', function(event) {
+        var x = event.pageX - elemLeft,
+            y = event.pageY - elemTop;
+        // console.logger(x, y);
+        elements.forEach(function(element) {
+            if (y > element.top && y < element.top + element.height && x > element.left && x < element.left + element.width) {
+                // alert('clicked an element');
+                numberofnodes--;
+                context.fillStyle = "#FFFFFF";
+                context.fillRect(element.left, element.top, element.width, element.height);
+                var index = elements.indexOf(element);
+                if (index > -1) {
+                    elements.splice(index, 1);
+                }
+                if(numberofnodes <= 0) {
+                    alert('removed all');
+                    document.getElementById("watchVideo").disabled = false;
+                }
+
+            }
+        });
+
+    }, false);
+
+    function show_video() {
+        var WatchVideoButton = document.getElementById('watchVideo');
+        WatchVideoButton.style.display = 'none';
+        elem.style.display = "none";
+        document.getElementById('videoblock').style.display = 'block';
+        document.getElementById('ratingblock').style.display = 'block';
+    }
+
+    //---- The following code is used for rating attention levels ----
+    // We first define the functions of the timer which is running as a loop for the control the rating buttons
+    //    var timeCounter = 0;
+    //    var timeOut;
+    var stopflag = true;
+    var seconds = 0;
+    var minSecond = 10;
+    var maxSecond = 30;
+    var interval;
+
+    function timedCount() {
+        document.getElementById('timerDisplay').value = timeCounter;
+        timeCounter = timeCounter + 1;
+        if (timeCounter > 10) {
+            document.getElementById("ratingButton1").disabled = false;
+            document.getElementById("ratingButton2").disabled = false;
+            document.getElementById("ratingButton3").disabled = false;
+            document.getElementById("ratingButton4").disabled = false;
+            document.getElementById("ratingButton5").disabled = false;
+        }
+        if (timeCounter > 30) {
+            // Add a reminder to remind subjects to rate their attention levels.
+        }
+        timeOut = setTimeout("timedCount()",1000);
+    }
+
+    function timerStart() {
+        timeCounter = 0;
+        stopflag = false;
+        clearTimeout(timeOut);
+        timeOut = setTimeout("document.getElementById('timerDisplay').value=0",0);
+        document.getElementById("ratingButton1").disabled = true;
+        document.getElementById("ratingButton2").disabled = true;
+        document.getElementById("ratingButton3").disabled = true;
+        document.getElementById("ratingButton4").disabled = true;
+        document.getElementById("ratingButton5").disabled = true;
+        clearTimeout(timeOut);
+        timeOut = setTimeout("timedCount()",1000);
+    }
+
+    function timerEnd() {
+        timeOut = setTimeout("document.getElementById('timerDisplay').value = 0",5000);
+        clearTimeout(timeOut);
+        document.getElementById("ratingButton1").disabled = true;
+        document.getElementById("ratingButton2").disabled = true;
+        document.getElementById("ratingButton3").disabled = true;
+        document.getElementById("ratingButton4").disabled = true;
+        document.getElementById("ratingButton5").disabled = true;
+    }
+
+    // Rating function
+    function attention_rating(rating) {
+        // 1. Submit the rating data
+        // console.logger({'rating':rating, 'time':(Date.now() - pageStartTime), 'type':'Rating'});
+
+        // 2. Disable the button
+        document.getElementById("ratingButton1").disabled = true;
+        document.getElementById("ratingButton2").disabled = true;
+        document.getElementById("ratingButton3").disabled = true;
+        document.getElementById("ratingButton4").disabled = true;
+        document.getElementById("ratingButton5").disabled = true;
+
+        // 3. Reset the reminder
+
+        // 4. Restart the timer
+        timerStart();
+    }
+
+    //---- video player ----
+    // 1. This code loads the IFrame Player API code asynchronously.
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    // 2. This function creates an <iframe> (and YouTube player)
+    //    after the API code downloads.
+    var player;
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('myIframe', {
+            events: {
+                'onStateChange': onPlayerStateChange
+            }
+        });
+    }
+
+    // 3. The API calls this function when the player's state changes.
+    //    The function indicates that when playing a video (state=1),
+    //    the player should play for six seconds and then stop.
+    function onPlayerStateChange(event) {
+        switch (event.data) {
+            case YT.PlayerState.PLAYING:
+                timerStart();
+                break;
+            case YT.PlayerState.PAUSED:
+                timerEnd();
+                break;
+            case YT.PlayerState.ENDED:
+                var timeOut = setTimeout("timerEnd()",5000);
+                clearTimeout(timeOut)
+                break;
+            default:
+                return;
+        }
+    }
+
+</script>
+
+</body>
+</html>

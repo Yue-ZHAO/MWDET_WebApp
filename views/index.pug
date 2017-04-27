@@ -1,0 +1,31 @@
+extends layout
+
+block content
+    h1= "Introduction"
+    hr
+    main
+        // Main container for the personal information form.
+        div(id="info" class="jumbotron")
+            .welcome
+                h3= "Welcome to the experiment!"
+                hr
+                p Welcome to our pilot study for measuring learners’ attention with webcam-based eye tracking.
+                p In this experiment, you are asked to watch two lecture videos and to answer some general questions in surveys and some content-related questions before and after videos.
+                p Please follow the instructions provided during the experiment. If you have any questions, ask the experimental supervisor who is present at all stages of the study.
+                p Thanks a lot.
+                p
+                    button(id="btn-intro-accept" class="btn btn-primary" onclick="window.location.href='/survey/presurvey'") Continue
+
+block scripts
+    script.
+        // data about the user's window/screen size
+        // window is the usable window size (browser without toolbar, address bar, etc).
+        // screen is the actual screen of the user.
+        var data = {
+            "window_height" : $(window).height(),
+            "window_width": $(window).width(),
+            "screen_height": screen.height,
+            "screen_width": screen.width
+        }
+
+        $.post('/environment/initial', data);

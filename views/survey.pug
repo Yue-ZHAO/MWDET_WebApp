@@ -1,0 +1,54 @@
+extends layout
+
+block content
+    - if (data.survey_type === "prevideosurvey" || data.survey_type === "postvideosurvey")
+        h1 Questionnaire Video #{round}
+    - else 
+        h1 Questionnaire
+    hr
+    main
+        div(id="info" class="jumbotron")
+            h3= data.survey_name
+            hr
+            form(id="form-survey" name="" class="" action="javascript:void(0)")
+                each question in data.survey_questions
+                    .form-group
+                        - if (question.type === "prequestion")
+                            h6= question.question
+
+                        - if (question.type === "multiple_choice")
+                            h6= question.question
+                            each option in question.options
+                                .radio
+                                    label
+                                        input(type="radio" value=option name=question.question)
+                                        | #{option}
+                            hr
+
+                        - if (question.type === "linkert")
+                            h6= question.question
+                            each option in question.options
+                                .radio-inline
+                                    label
+                                        input(type="radio" value=option name=question.question)
+                                        | #{option}
+                            hr
+
+                        - if (question.type === "text" || question.type === "number")
+                            h6= question.question
+                            input(name=question.question type=question.type class="form-control")
+                            br
+
+                        - if (question.type === "email")
+                            h6= question.question
+                            input(name="email" type="email" class="form-control")
+                            br
+
+                        - if (question.type === "textarea") 
+                            h6= question.question
+                            textarea(name=question.question type=question.type class="form-control")
+                            br 
+
+            button(id="btn-postsurvey-submit" type="submit" class="btn btn-primary" onclick="survey.parse('form-survey', '"+ data.survey_type +"')") Submit
+block scripts
+    script(type="text/javascript" src="javascript/survey.js")

@@ -1,0 +1,53 @@
+{
+    "survey_name": "Let us know more about you",
+    "survey_type": "presurvey",
+    "survey_stage": "",
+    "survey_questions": [
+        {
+            "type": "text",
+            "question": "1. Your name:"
+        },
+        {
+            "type": "number",
+            "question": "2. Age:"
+        },
+        {
+            "type": "linkert",
+            "question": "3. Gender:",
+            "options": ["Female", "Male", "Prefer not to disclose"]
+        },
+        {
+            "type": "linkert",
+            "question": "4. Are you wearing glasses now?",
+            "options": ["No", "Glasses", "Contact lens"]
+        },
+        {
+            "type": "multiple_choice",
+            "question": "5. Have you participated in any MOOCs (e.g. courses on Coursera, edX, Udacity etc.) before?",
+            "options": ["Never", "I have registered for at least one MOOC, but have not actively participated beyond the first week.", "I have participated in at least one MOOC beyond the first week; however, I have not gained any MOOC certificates.", "I have gained at least one MOOC certificate."]
+        },
+        {
+            "type": "prequestion",
+            "question": "6. When you try to study, you OFTEN find that..."
+        },
+        {
+            "type": "linkert",
+            "question": " … you are easily distracted by non-study related thoughts.",
+            "options": ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"]
+        },
+        {
+            "type": "linkert",
+            "question": " … you are easily distracted by external stimuli (e.g. voices, noise, movements, etc.) around you",
+            "options": ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"]
+        },
+        {
+            "type": "linkert",
+            "question": " … you have to work longer than you had planned, or you won’t complete your plan.",
+            "options": ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"]
+        },
+        {
+            "type": "number",
+            "question": "7. How many minutes at a time are you able to focus on a study task before you are distracted (e.g. by checking your emails, talking to others, ...)?"
+        } 
+  ]
+}

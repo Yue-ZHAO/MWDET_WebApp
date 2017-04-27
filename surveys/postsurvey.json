@@ -1,0 +1,51 @@
+{
+    "survey_name": "Finally, we would like to ask you to reflect on your experience during this study.",
+    "survey_type": "postsurvey",
+    "survey_stage": "",
+    "survey_questions": [
+        {
+            "type": "linkert",
+            "question": "1. To what extent was the energy conversion video interesting to you?",
+            "options": ["Very boring", "Boring", "Neutral", "Interesting", "Very Interesting"]
+        },
+        {
+            "type": "linkert",
+            "question": "2. To what extent was the nuclear physics video interesting to you?",
+            "options": ["Very boring", "Boring", "Neutral", "Interesting", "Very Interesting"]
+        },
+        {
+            "type": "prequestion",
+            "question": "3. While watching previous two videos, you find it distracting when..."
+        },
+        {
+            "type": "linkert",
+            "question": " … you try to keep your body position stable.",
+            "options": ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"]
+        },
+        {
+            "type": "linkert",
+            "question": " … you try to fix your head position.",
+            "options": ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"]
+        },
+        {
+            "type": "linkert",
+            "question": " … the alert bells ring.",
+            "options": ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"]
+        },        
+        {
+            "type": "linkert",
+            "question": " … you report your distraction by pressing the key.",
+            "options": ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"]
+        },        
+        {
+            "type": "linkert",
+            "question": " … you have some irrelevant information or thoughts appearing in your mind.",
+            "options": ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree", "Never happens"]
+        }, 
+        {
+            "type": "textarea",
+            "question": "4. Did anything else distract you in this experiment?"
+        }       
+  ]
+}
+

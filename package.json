@@ -1,0 +1,30 @@
+{
+  "name": "eyetracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codesalad/eyetracker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codesalad/eyetracker/issues"
+  },
+  "homepage": "https://github.com/codesalad/eyetracker#readme",
+  "dependencies": {
+    "body-parser": "^1.16.1",
+    "express": "^4.14.1",
+    "fs": "0.0.1-security",
+    "ip": "^1.1.4",
+    "jsonfile": "^2.4.0",
+    "log4js": "^1.1.0",
+    "morgan": "^1.8.1",
+    "pug": "^2.0.0-beta11"
+  }
+}

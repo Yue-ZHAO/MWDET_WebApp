@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Webcam-based Eye Tracking Test Page</title>
+</head>
+<body>
+
+<div id="countdown">1111111</div>
+
+<button id="download" style="display: none;" onclick="show_video();">Watch the lecture video</button>
+
+<iframe id="myIframe" width="830" height="467" src="https://www.youtube.com/embed/uA4J7DQ95cE" frameborder="0" allowfullscreen style="display: none;">
+</iframe>
+
+<canvas id="fullscreen" style="display: none;"></canvas>
+
+<script>
+// Instruction part, need to be improved
+window.confirm("This is a test page.\n" +
+"1. In the next step, you are asked to play a small game.\n" +
+"   You need to click each ball until it disappears.\n" +
+"   The more you click, the higher score you get.\n" +
+"   The total time is 30 seconds.\n" +
+"2. After the small game, you are asked to watch a short lecture video.\n" +
+"   During watching the video, you need to keep you position stable.\n" +
+"   Most operations are allowed, except for speeding up and skipping the video playing.")
+</script>
+
+<!-- Load WebGazer.js -->
+<script src="webgazer.js"></script>
+<script>
+
+    var pageStartTime = Date.now();
+    var recentClickRecord;
+    var recentGazePrediction;
+    var sumError = 0;
+    var numRecords = 0;
+    var compareRecords = [];
+
+    document.addEventListener('click', recordMousePos, true);
+    function recordMousePos(event) {
+        var e = event || window.event;
+        // console.logger({'x':e.clientX,'y':e.clientY,'time':(Date.now() - pageStartTime),'type':'Click'});
+        if(!recentGazePrediction)
+            return;
+        recentClickRecord = {'x':e.clientX,'y':e.clientY,'time':(Date.now() - pageStartTime)}
+        if (recentClickRecord.time - recentGazePrediction.time > 0 &&
+            recentClickRecord.time - recentGazePrediction.time < 100) {
+            var relativeError =
+                Math.sqrt(Math.pow((recentClickRecord.x - recentGazePrediction.x), 2) +
+                    Math.pow((recentClickRecord.y - recentGazePrediction.y), 2));
+            numRecords += 1;
+            sumError += relativeError;
+            compareRecords.push({
+                "Click":[recentClickRecord.x, recentClickRecord.y],
+                "Prediction":[recentGazePrediction.x, recentGazePrediction.y],
+                "Error":relativeError,
+                "MeanError":(sumError/numRecords)});
+            var outputString =
+                "ClickTime: " + numRecords + "    " +
+                "Click: (" + recentClickRecord.x + ", " + recentClickRecord.y + ")    " +
+                "Prediction: (" + recentGazePrediction.x + ", " + recentGazePrediction.y + ")    " +
+                "Error: " + relativeError + "    " +
+                "MeanError: " + (sumError/numRecords);
+            document.getElementById("output").innerHTML += outputString + "<br>";
+        }
+        return;
+    }
+
+    window.onload = function() {
+
+        webgazer.setRegression('ridge') /* currently must set regression and tracker */
+            .setTracker('clmtrackr')
+            .setGazeListener(function(data, clock) {
+                // console.logger(data); /* data is an object containing an x and y key which are the x and y prediction coordinates (no bounds limiting) */
+                // console.logger(clock); /* elapsed time in milliseconds since webgazer.begin() was called */
+                if(!data)
+                    return;
+                var x = data.x
+                var y = data.y
+                // console.logger({'x':x,'y':y,'time':(Date.now() - pageStartTime),'type':'Gaze'})
+                recentGazePrediction = {'x':x,'y':y,'time':(Date.now() - pageStartTime)}
+            })
+            .begin()
+            .showPredictionPoints(true); /* shows a square every 100 milliseconds where current prediction is */
+
+        var width = 300;
+        var height = 200;
+        var topDist = '0px';
+        var leftDist = '300px';
+
+        var setup = function() {
+            // show
+            var video = document.getElementById('webgazerVideoFeed');
+            video.style.display = 'block';
+            video.style.position = 'absolute';
+            video.style.top = topDist;
+            video.style.left = leftDist;
+            video.width = width;
+            video.height = height;
+            video.style.margin = '0px';
+
+            webgazer.params.imgWidth = width;
+            webgazer.params.imgHeight = height;
+
+            var overlay = document.createElement('canvas');
+            overlay.id = 'overlay';
+            overlay.style.position = 'absolute';
+            overlay.width = width;
+            overlay.height = height;
+            overlay.style.top = topDist;
+            overlay.style.left = leftDist;
+            overlay.style.margin = '0px';
+
+            document.body.appendChild(overlay);
+
+            var cl = webgazer.getTracker().clm;
+
+            function drawLoop() {
+                requestAnimFrame(drawLoop);
+                overlay.getContext('2d').clearRect(0,0,width,height);
+                if (cl.getCurrentPosition()) {
+                    cl.draw(overlay);
+                }
+            }
+            drawLoop();
+        };
+
+        function checkIfReady() {
+            if (webgazer.isReady()) {
+                setup();
+            } else {
+                setTimeout(checkIfReady, 100);
+            }
+        }
+        setTimeout(checkIfReady,100);
+
+        var countdownElement = document.getElementById('countdown'),
+            downloadButton = document.getElementById('download'),
+            seconds = 10,
+            second = 0,
+            interval;
+
+        downloadButton.style.display = 'none';
+
+        interval = setInterval(function() {
+            countdownElement.firstChild.data = 'You still have ' + (seconds - second) + ' seconds';
+            if (second >= seconds) {
+                downloadButton.style.display = 'block';
+                clearInterval(interval);
+            }
+
+            second++;
+        }, 1000);
+    };
+
+    function show_video() {
+        document.getElementById('myIframe').style.display = 'block';
+    }
+
+    window.onbeforeunload = function() {
+        //webgazer.end(); //Uncomment if you want to save the data even if you reload the page.
+        window.localStorage.clear(); //Comment out if you want to save data across different sessions
+    }
+</script>
+
+</body>
+</html>

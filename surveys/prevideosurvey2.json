@@ -1,0 +1,27 @@
+{
+    "survey_name": "What is your prior knowledge on the topic of nuclear physics?",
+    "survey_type": "prevideosurvey",
+    "survey_stage": 2,
+    "survey_questions": [
+        {
+            "type": "multiple_choice",
+            "question": "1. In the following, whose radius is smallest?",
+            "options": ["Nucleus", "Quark", "Neutron", "Proton", "I don't know / I am not sure."]
+        },
+        {
+            "type": "multiple_choice",
+            "question": "2. In nuclear power plants, which of the following fuels and mechanisms are commonly used in nuclear reactors currently?",
+            "options": ["Uranium, nuclear fission", "Hydrogen, nuclear fission", "Uranium, nuclear fusion", "Hydrogen, nuclear fusion", "I don't know / I am not sure."]
+        },
+        {
+            "type": "multiple_choice",
+            "question": "3. Nucleons are held together by ...",
+            "options": ["the strong force.", "the inner-nucleus force.", "the atomic force.", "the binding force.", "I don't know / I am not sure."]
+        },
+        {
+            "type": "multiple_choice",
+            "question": "4. The mass number of a nucleons describes ...",
+            "options": ["the number of neutrons.", "the number of protons.", "the number of electrons.", "the sum of number of neutrons and protons.", "the sum of number of neutrons, protons, and electrons.", "I don't know / I am not sure."]
+        }
+  ]
+}
